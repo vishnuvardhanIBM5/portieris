@@ -30,11 +30,7 @@ import (
 	"github.com/golang/glog"
 	admissionv1 "k8s.io/api/admission/v1"
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/serializer"
 )
-
-var codec = serializer.NewCodecFactory(runtime.NewScheme())
 
 // Controller is the notary controller
 type Controller struct {
@@ -222,7 +218,7 @@ func (c *Controller) getPatchesForContainers(containerType, namespace, specPath 
 		if digest != nil {
 			// ISSUE: https://github.com/IBM/portieris/issues/244
 			// unset -> mutate
-			if containerPolicy.MutateImage == nil || *containerPolicy.MutateImage == true {
+			if containerPolicy.MutateImage == nil || *containerPolicy.MutateImage {
 				// convert digest to patch
 				glog.Infof("Mutation #: %s %d  Image name: %s", containerType, containerIndex, img.String())
 				if strings.Contains(container.Image, img.String()) {

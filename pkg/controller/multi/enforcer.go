@@ -104,7 +104,7 @@ func (e enforcer) DigestByPolicy(namespace string, img *image.Reference, credent
 		glog.Infof("DCT digest: %v", notaryDigest)
 		if notaryDigest != nil {
 			if digest != nil && notaryDigest != digest {
-				return nil, fmt.Errorf("Notary signs conflicting digest: %v simple: %v", notaryDigest, digest), nil
+				return nil, fmt.Errorf("notary signs conflicting digest: %v simple: %v", notaryDigest, digest), nil
 			}
 			digest = notaryDigest
 		}

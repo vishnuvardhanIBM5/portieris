@@ -54,19 +54,18 @@ var _ = AfterSuite(func() {
 })
 
 var (
-	tempTrustDir        string
-	ctrl                *Controller
-	kubeClientset       *k8sfake.Clientset
-	kubeWrapper         kubernetes.WrapperInterface
-	secClientset        *policyclientsetfake.Clientset
-	policyClient        *policy.Client
-	kubeObjects         []runtime.Object
-	imageObjects        []runtime.Object
-	clusterimageObjects []runtime.Object
-	trust               *fakenotary.FakeNotary
-	cr                  *fakeregistry.FakeRegistry
-	wh                  *webhook.Server
-	pm                  *metrics.PortierisMetrics
+	tempTrustDir  string
+	ctrl          *Controller
+	kubeClientset *k8sfake.Clientset
+	kubeWrapper   kubernetes.WrapperInterface
+	secClientset  *policyclientsetfake.Clientset
+	policyClient  *policy.Client
+	kubeObjects   []runtime.Object
+	imageObjects  []runtime.Object
+	trust         *fakenotary.FakeNotary
+	cr            *fakeregistry.FakeRegistry
+	wh            *webhook.Server
+	pm            *metrics.PortierisMetrics
 )
 
 // resetAllFakes should be call before any test
