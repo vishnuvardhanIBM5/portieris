@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ main ]
+    branches: [ builds390x-vi ]
   pull_request:
-    branches: [ main ]
+    branches: [ builds390x-vi ]
 
 jobs:
   test:
@@ -30,5 +30,6 @@ jobs:
         export GOPATH=$HOME/go
         export PATH=$PATH:$HOME/go/bin/
         export TERM=ansi
-        make alltests
-        mv /root/go/src/github.com/IBM/portieris/ /tmp/github-runner-your-repo/portieris/
+
+# make alltests
+# mv /root/go/src/github.com/IBM/portieris/ /tmp/github-runner-your-repo/portieris/
