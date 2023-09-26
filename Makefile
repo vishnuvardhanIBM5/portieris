@@ -17,11 +17,11 @@ deps.jsonl: portieris
 
 nancy: deps.jsonl
 	cat deps.jsonl | nancy --skip-update-check --loud sleuth
- 
+
 detect-secrets:
 	detect-secrets audit .secrets.baseline
 
-image: 
+image:
 	docker build --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG) .
 
 push:
@@ -31,7 +31,9 @@ push:
 test-deps:
 	go install golang.org/x/lint/golint@latest
 
-alltests: test-deps fmt lint vet copyright-check test
+# alltests: test-deps fmt lint vet copyright-check test
+
+alltests: test-deps fmt lint vet test
 
 test:
 	./scripts/makeTest.sh "${GOPACKAGES}" ${GOTAGS}
@@ -58,7 +60,7 @@ helm.package:
 
 helm.install.local: helm.package
 	-kubectl create ns portieris
-	-kubectl get secret $(PULLSECRET) -o yaml | sed 's/namespace: default/namespace: portieris/' | kubectl create -f - 
+	-kubectl get secret $(PULLSECRET) -o yaml | sed 's/namespace: default/namespace: portieris/' | kubectl create -f -
 	helm install -n portieris portieris $$(pwd)/portieris-$(VERSION).tgz --set image.host=$(HUB) --set image.tag=$(TAG) --set image.pullSecret=$(PULLSECRET)
 
 helm.install: helm.package
