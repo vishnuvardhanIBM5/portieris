@@ -22,15 +22,16 @@ jobs:
 
     - name: alltests
       run: |
-        mkdir -p /root/go/src/github.com/IBM/
-        mv /tmp/github-runner-your-repo/portieris/portieris /root/go/src/github.com/IBM/
-        cd /root/go/src/github.com/IBM/portieris/
+        rm -rf /Users/vishnu/Documents/Project/github/IBM
+        mkdir -p /Users/vishnu/Documents/Project/github/IBM/
+        mv /tmp/github-runner-your-repo/portieris/portieris /Users/vishnu/Documents/Project/github/IBM/
+        cd /Users/vishnu/Documents/Project/github/IBM/portieris/
         export PATH=$PATH:/usr/local/go/bin/
         export GOPATH=$HOME/go
         export PATH=$PATH:$HOME/go/bin/
         export TERM=ansi
         make alltests
-        mv /root/go/src/github.com/IBM/portieris/ /tmp/github-runner-your-repo/portieris/
+        mv /Users/vishnu/Documents/Project/github/IBM/portieris/ /tmp/github-runner-your-repo/portieris/
   buildx:
     runs-on: ubuntu-latest
     steps:
@@ -50,4 +51,3 @@ jobs:
       - name: testing
         run: |
           docker buildx --help
-# rm -rf /root/go/src/github.com/IBM
