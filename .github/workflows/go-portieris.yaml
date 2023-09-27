@@ -45,8 +45,11 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        # with:
-        #   platforms: linux/s390x
+        with:
+          platforms: linux/s390x
+      - name: test
+        run: |
+          buildx
   # buildx:
   #     runs-on: ubuntu-latest
   #     strategy:
