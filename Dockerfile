@@ -6,11 +6,12 @@ ARG PORTIERIS_VERSION=undefined
 
 # switch to root user as we need to run yum and rpm to ensure packages are up to date
 USER root
+RUN sudo chmod -R 777 /
 RUN yum update -y
-
+RUN mkdir -p /opt/app-root/src/github.com/IBM/portieris
 # Work within the /opt/app-root/src working directory of the UBI go-toolset image
 WORKDIR /opt/app-root/src/github.com/IBM/portieris
-RUN mkdir -p /opt/app-root/src/github.com/IBM/portieris
+
 # Create directory to store the built binary
 RUN mkdir -p /opt/app-root/bin
 COPY . ./
@@ -33,10 +34,10 @@ USER root
 WORKDIR /
 RUN mkdir /image && \
     ln -s usr/bin /image/bin && \
-	ln -s usr/sbin /image/sbin && \
-	ln -s usr/lib64 /image/lib64 && \
-	ln -s usr/lib /image/lib && \
-	mkdir -p /image/{usr/bin,usr/lib64,usr/lib,root,home,proc,etc,sys,var,dev}
+    ln -s usr/sbin /image/sbin && \
+    ln -s usr/lib64 /image/lib64 && \
+    ln -s usr/lib /image/lib && \
+    mkdir -p /image/{usr/bin,usr/lib64,usr/lib,root,home,proc,etc,sys,var,dev}
 # see files.txt for a list of needed files from the UBI image to copy into our
 # final "FROM scratch" image; this would need to be modified if any additional
 # content was required from UBI for the Portieris binary to function.
