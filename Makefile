@@ -28,10 +28,11 @@ image.oci-archive:
 
 image.amd64:
 	docker buildx build --load --platform linux/amd64 --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-amd64-linux:$(TAG) .
+	docker images
 
 image.s390x:
 	docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-s390x-linux:$(TAG) .
-
+	docker images
 test-deps:
 	go install golang.org/x/lint/golint@latest
 
@@ -123,5 +124,3 @@ code-generator:
 
 regenerate:
 	bash $(GOPATH)/pkg/mod/k8s.io/code-generator@v0.24.0/generate-groups.sh all github.com/IBM/portieris/pkg/apis/portieris.cloud.ibm.com/client github.com/IBM/portieris/pkg/apis portieris.cloud.ibm.com:v1
-
-
