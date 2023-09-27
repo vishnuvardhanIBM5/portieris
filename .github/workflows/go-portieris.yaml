@@ -24,14 +24,14 @@ jobs:
       run: |
         sudo chmod -R 777 /root/
         mkdir -p /root/go/src/github.com/IBM/
-        mv /tmp/github-runner-your-repo/portieris/portieris /root/go/src/github.com/IBM/
+        mv /home/runner/work/portieris/portieris /root/go/src/github.com/IBM/
         cd /root/go/src/github.com/IBM/portieris/
         export PATH=$PATH:/usr/local/go/bin/
         export GOPATH=$HOME/go
         export PATH=$PATH:$HOME/go/bin/
         export TERM=ansi
         make alltests
-        mv /root/go/src/github.com/IBM/portieris/ /tmp/github-runner-your-repo/portieris/
+        mv /root/go/src/github.com/IBM/portieris/ /home/runner/work/portieris/portieris/
   # buildx:
   #   runs-on: ubuntu-latest
   #   steps:
