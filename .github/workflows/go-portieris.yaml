@@ -49,7 +49,7 @@ jobs:
           platforms: linux/s390x
       - name: test
         run: |
-          buildx
+          docker buildx --help
   # buildx:
   #     runs-on: ubuntu-latest
   #     strategy:
