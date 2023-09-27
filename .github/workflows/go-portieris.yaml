@@ -22,7 +22,7 @@ jobs:
 
     - name: alltests
       run: |
-        sudo chmod -x /
+        sudo chmod -R 777 /root/
         mkdir -p /root/go/src/github.com/IBM/
         mv /tmp/github-runner-your-repo/portieris/portieris /root/go/src/github.com/IBM/
         cd /root/go/src/github.com/IBM/portieris/
