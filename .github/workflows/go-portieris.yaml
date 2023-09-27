@@ -22,7 +22,6 @@ jobs:
 
     - name: alltests
       run: |
-# rm -rf /root/go/src/github.com/IBM
         mkdir -p /root/go/src/github.com/IBM/
         mv /tmp/github-runner-your-repo/portieris/portieris /root/go/src/github.com/IBM/
         cd /root/go/src/github.com/IBM/portieris/
@@ -51,3 +50,4 @@ jobs:
       - name: testing
         run: |
           docker buildx --help
+# rm -rf /root/go/src/github.com/IBM
