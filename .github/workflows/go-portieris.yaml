@@ -7,6 +7,25 @@ on:
     branches: [ builds390x-vi ]
 
 jobs:
+  buildx:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        # Add support for more platforms with QEMU (optional)
+        # https://github.com/docker/setup-qemu-action
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/s390x
+      - name: testing
+        run: |
+          docker buildx --help
   test:
     name: alltests
     runs-on: [self-hosted,go]
@@ -30,77 +49,5 @@ jobs:
         export GOPATH=$HOME/go
         export PATH=$PATH:$HOME/go/bin/
         export TERM=ansi
-
-  buildx:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4
-      -
-        # Add support for more platforms with QEMU (optional)
-        # https://github.com/docker/setup-qemu-action
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          platforms: linux/s390x
-      - name: test
-        run: |
-          docker buildx --help
-  # buildx:
-  #     runs-on: ubuntu-latest
-  #     strategy:
-  #       fail-fast: false
-  #       matrix:
-  #         buildx-version:
-  #           - "latest"
-  #     steps:
-  #       -
-  #         name: Checkout
-  #         uses: actions/checkout@v4
-  #       -
-  #         name: Set up Docker Buildx
-  #         id: buildx
-  #         uses: ./
-  #         with:
-  #           version: ${{ matrix.buildx-version }}
-  #       -
-  #         name: Nodes output
-  #         run: |
-  #           cat << EOF
-  #           ${{ steps.buildx.outputs.nodes }}
-  #           EOF
-  # install:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v4
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: ./
-  #       with:
-  #         install: true
-  #     -
-  #       name: Check cmd
-  #       run: |
-  #         docker build --help
-  # platforms:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v4
-  #     -
-  #       name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v3
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: ./
-  #       with:
-  #         platforms: linux/s390x
-# make alltests
-# mv /root/go/src/github.com/IBM/portieris/ /tmp/github-runner-your-repo/portieris/
+        make alltests
+        mv /root/go/src/github.com/IBM/portieris/ /tmp/github-runner-your-repo/portieris/

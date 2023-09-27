@@ -23,10 +23,12 @@ detect-secrets:
 
 image:
 	docker build --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG) .
+	docker buildx build --platform=linux/s390x --progress=plain --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG)-s390x .
+	docker images
 
-push:
-	docker tag portieris:$(TAG) $(HUB)/portieris:$(TAG)
-	docker push $(HUB)/portieris:$(TAG)
+# push:
+# 	docker tag portieris:$(TAG) $(HUB)/portieris:$(TAG)
+# 	docker push $(HUB)/portieris:$(TAG)
 
 test-deps:
 	go install golang.org/x/lint/golint@latest
