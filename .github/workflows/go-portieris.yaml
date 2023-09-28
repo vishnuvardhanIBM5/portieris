@@ -32,12 +32,12 @@ jobs:
         export TERM=ansi
         make alltests
         mv /root/go/src/github.com/IBM/portieris/ /home/runner/work/portieris/portieris/
-        make image.s390x
-        docker images
+# image.amd64
+# docker images
 
-    - name: build-s390x
+    - name: image-build
       run:
-        make image.s390x
+        make image.amd64
         docker images
   # buildx:
   #   runs-on: ubuntu-latest
