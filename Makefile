@@ -26,11 +26,13 @@ image: image.amd64
 image.oci-archive:
 	docker buildx build -o type=oci,dest=./portieris.tar --platform linux/amd64,linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG) .
 
-image.amd64:
+build-amd64:
 	docker buildx build --load --platform linux/amd64 --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-amd64-linux:$(TAG) .
 
-image.s390x:
-	docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-s390x-linux:$(TAG) .
+build-s390x:
+# docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-s390x-linux:$(TAG) .
+	docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$$VERSION -t portieris-s390x-linux:$$TAG .
+
 
 test-deps:
 	go install golang.org/x/lint/golint@latest

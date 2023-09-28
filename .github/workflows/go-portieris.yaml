@@ -49,9 +49,7 @@ jobs:
 
     - name: image-build
       run:
-        make image.amd64
-        docker images
-        make image.s390x
+        make build-s390x
         docker images
 
   # buildx:
