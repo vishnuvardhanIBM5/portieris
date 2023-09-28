@@ -50,7 +50,9 @@ jobs:
     - name: image-build
       run:
         make image.amd64
+        docker images
         make image.s390x
+        docker images
 
   # buildx:
   #   runs-on: ubuntu-latest
