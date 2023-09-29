@@ -46,15 +46,12 @@ jobs:
       with:
         platforms: linux/amd64,linux/s390x
 
-    # - name: amd64-build
-    #   run:
-    #     make image-amd64
-    # - name: s390x-build
-    #   run:
-    #     make image-s390x
+    - name: amd64-build
+      run:
+        make image-amd64
+    - name: s390x-build
+      run:
+        make image-s390x
     # - name: multiarch-build
     #   run:
     #     make image.oci-archive
-    - name: multiarch-build
-      run:
-        make image.load-archive
