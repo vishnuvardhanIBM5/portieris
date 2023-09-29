@@ -26,6 +26,7 @@ FROM registry.access.redhat.com/ubi8/go-toolset:1.19.10-16 as installer
 ARG TARGETOS TARGETARCH
 USER root
 RUN yum update -y
+RUN yum install -y libc6
 # prep target rootfs for scratch container
 WORKDIR /
 RUN mkdir /image && \
@@ -38,19 +39,8 @@ RUN mkdir /image && \
 # final "FROM scratch" image; this would need to be modified if any additional
 # content was required from UBI for the Portieris binary to function.
 COPY files-${TARGETARCH}.txt /tmp
-# RUN tar cf /tmp/files.tar -T /tmp/files-${TARGETARCH}.txt && tar xf /tmp/files.tar -C /image/ \
-#   && strip --strip-unneeded /image/usr/lib64/*[0-9].so
-
-RUN if [ "$TARGETARCH" = "amd64" ]; then \
-        tar cf /tmp/files.tar -T /tmp/files-amd64.txt; \
-    elif [ "$TARGETARCH" = "s390x" ]; then \
-        tar cf /tmp/files.tar -T /tmp/files-s390x.txt; \
-    else \
-        echo "Unsupported architecture"; \
-        exit 1; \
-    fi && \
-    tar xf /tmp/files.tar -C /image/ && \
-    strip --strip-unneeded /image/usr/lib64/*[0-9].so
+RUN tar cf /tmp/files.tar -T /tmp/files-${TARGETARCH}.txt && tar xf /tmp/files.tar -C /image/ \
+  && strip --strip-unneeded /image/usr/lib64/*[0-9].so
 
 RUN rpm --root /image --initdb \
   && PACKAGES=$(rpm -qf $(cat /tmp/files-${TARGETARCH}.txt) | grep -v "is not owned by any package" | sort -u) \
