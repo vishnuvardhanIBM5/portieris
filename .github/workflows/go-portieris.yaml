@@ -55,3 +55,6 @@ jobs:
     - name: multiarch-build
       run:
         make image.oci-archive
+    - name: multiarch-build
+      run:
+        make image.load-archive

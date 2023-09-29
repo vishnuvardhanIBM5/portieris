@@ -5,7 +5,7 @@ VERSION=v0.13.7
 TAG=$(VERSION)
 GOTAGS='containers_image_openpgp'
 
-.PHONY: test nancy test-deps alltests copyright-check copyright fmt detect-secrets image image.oci-archive image-amd64 image-s390x
+.PHONY: test nancy test-deps alltests copyright-check copyright fmt detect-secrets image image.oci-archive image.amd64 image.s390x image.load-archive
 
 portieris:
 	CGO_ENABLED=0 go build \
@@ -21,17 +21,26 @@ nancy: deps.jsonl
 detect-secrets:
 	detect-secrets audit .secrets.baseline
 
-image: image-amd64
+image: image.amd64
 
 image.oci-archive:
-	docker buildx build -o type=oci,dest=./portieris.tar --platform linux/amd64,linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG) .
+	docker buildx build -o type=oci,dest=./portieris.tar --platform linux/amd64,linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG)-${arch} .
+	docker images
+	docker inspect portieris:$(TAG)-amd64
+	docker inspect portieris:$(TAG)-s390x
 
-image-amd64:
+image.load-archive:
+	docker buildx build --load --platform linux/amd64,linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG)-${arch} .
+	docker images
+	docker inspect portieris:$(TAG)-amd64
+	docker inspect portieris:$(TAG)-s390x
+
+image.amd64:
 	docker buildx build --load --platform linux/amd64 --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-amd64-linux:$(TAG) .
 	docker images
 	docker inspect portieris-amd64-linux:$(TAG)
 
-image-s390x:
+image.s390x:
 	docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-s390x-linux:$(TAG) .
 	docker images
 	docker inspect portieris-s390x-linux:$(TAG)
