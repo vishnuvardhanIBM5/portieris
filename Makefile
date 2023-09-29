@@ -24,7 +24,9 @@ detect-secrets:
 image: image.amd64
 
 image.oci-archive:
-	docker buildx build -o type=oci,dest=./portieris.tar --platform linux/amd64,linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG) .
+	docker buildx build -o type=oci,dest=./portieris.tar --platform linux/amd64,linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris:$(TAG)-${arch} .
+	tar -xvf ./portieris.tar
+	docker images
 
 image.amd64:
 	docker buildx build --load --platform linux/amd64 --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-amd64-linux:$(TAG) .
