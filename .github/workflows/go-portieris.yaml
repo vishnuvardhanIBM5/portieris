@@ -44,9 +44,11 @@ jobs:
         make alltests
         mv /root/go/src/github.com/IBM/portieris/ /home/runner/work/portieris/portieris/
 
-    - name: image-build
+    - name: amd64-build
       run:
         make image-amd64
+    - name: s390x-build
+      run:
         make image-s390x
 
   # buildx:
