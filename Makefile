@@ -30,8 +30,7 @@ build-amd64:
 	docker buildx build --load --platform linux/amd64 --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-amd64-linux:$(TAG) .
 
 build-s390x:
-# docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-s390x-linux:$(TAG) .
-	docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$$VERSION -t portieris-s390x-linux:$$TAG .
+	docker buildx build --load --platform linux/s390x --build-arg PORTIERIS_VERSION=$(VERSION) -t portieris-s390x-linux:$(TAG) .
 
 
 test-deps:
