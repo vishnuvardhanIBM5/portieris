@@ -47,7 +47,6 @@ jobs:
     - name: image-build
       run:
         make image-amd64
-        docker images
 
   # buildx:
   #   runs-on: ubuntu-latest
