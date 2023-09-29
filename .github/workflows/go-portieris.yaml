@@ -52,9 +52,9 @@ jobs:
     # - name: s390x-build
     #   run:
     #     make image-s390x
-    - name: multiarch-build
-      run:
-        make image.oci-archive
+    # - name: multiarch-build
+    #   run:
+    #     make image.oci-archive
     - name: multiarch-build
       run:
         make image.load-archive
