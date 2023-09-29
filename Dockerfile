@@ -38,6 +38,7 @@ RUN mkdir /image && \
 # final "FROM scratch" image; this would need to be modified if any additional
 # content was required from UBI for the Portieris binary to function.
 COPY files-${TARGETARCH}.txt /tmp
+RUN ls -a /usr/lib64
 RUN tar cf /tmp/files.tar -T /tmp/files-${TARGETARCH}.txt && tar xf /tmp/files.tar -C /image/ \
   && strip --strip-unneeded /image/usr/lib64/*[0-9].so
 
