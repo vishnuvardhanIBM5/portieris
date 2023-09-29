@@ -26,7 +26,6 @@ FROM registry.access.redhat.com/ubi8/go-toolset:1.19.10-16 as installer
 ARG TARGETOS TARGETARCH
 USER root
 RUN yum update -y
-RUN yum install -y libc6
 # prep target rootfs for scratch container
 WORKDIR /
 RUN mkdir /image && \

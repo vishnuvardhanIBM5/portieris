@@ -1,7 +1,7 @@
 etc/pki
 root/buildinfo
-usr/lib64/ld-2.28.so
-usr/lib64/ld-linux-x86-64.so.2
+usr/lib64/ld64.so            # Equivalent loader file for s390x
+usr/lib64/ld64.so.1          # Equivalent loader file for s390x (alternative)
 usr/lib64/libc-2.28.so
 usr/lib64/libc.so
 usr/lib64/libc.so.6
