@@ -48,10 +48,10 @@ jobs:
 
     - name: amd64-build
       run:
-        make image-amd64
+        make image.amd64
     - name: s390x-build
       run:
-        make image-s390x
+        make image.s390x
     # - name: multiarch-build
     #   run:
     #     make image.oci-archive
