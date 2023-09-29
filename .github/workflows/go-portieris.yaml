@@ -2,9 +2,9 @@ name: Go
 
 on:
   push:
-    branches: [ builds390x-vi ]
+    branches: [ build-multiarch-vi ]
   pull_request:
-    branches: [ builds390x-vi ]
+    branches: [ build-multiarch-vi ]
 
 jobs:
   test:
