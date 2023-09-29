@@ -47,6 +47,7 @@ jobs:
     - name: image-build
       run:
         make image-amd64
+        make image-s390x
 
   # buildx:
   #   runs-on: ubuntu-latest
